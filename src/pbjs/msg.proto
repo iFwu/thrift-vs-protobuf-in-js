@@ -1,0 +1,31 @@
+// See README.txt for information and build instructions.
+
+package serializers.protobuf.media;
+
+message Media {
+  required string uri = 1;      //uri to the video, may not be an actual URL
+  optional string title = 2;    //used in the html ALT
+  required int32 width = 3;     // of the video
+  required int32 height = 4;    // of the video
+  required string format = 5;   //avi, jpg, youtube, cnbc, audio/mpeg formats ...
+  required int64 duration = 6;  //time in miliseconds
+  required int64 size = 7;      //file size
+  optional int32 bitrate = 8;   //video 
+  repeated string person = 9;   //name of a person featured in the video
+  enum Player {
+    JAVA = 0;
+    FLASH = 1;
+  }
+  required Player player = 10;   //in case of a player specific media
+  optional string copyright = 11;//media copyright
+}
+
+message Response {
+  required int32 code = 1;
+  required bool success = 2;
+  required string message = 3;
+}
+
+service UploadMedia {
+  rpc Upload (Media) returns (Response);
+}
